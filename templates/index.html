@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion de proyectos</title>
+
+    <!-- La hoja de estilo local (main.css) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+    <!-- Plantilla de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lumen/bootstrap.min.css"
+          integrity="sha384-GzaBcW6yPIfhF+6VpKMjxbTx6tvR/yRd/yJub90CqoIn2Tz4rRXlSpTFYMKHCifX" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+          rel="stylesheet">
+
+</head>
+<body>
+<main class="container-fluid p-4">
+    <h1 class="display-4 text-center mt-4 titulo">Gestión de proyectos</h1>
+
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 my-auto"> <!--Este div ocupará 4 columnas del espacio (centrado)-->
+                <div class="card"> <!--Creacion del objeto card-->
+                    <div class="card-header">
+                        <form action="/crear-proyecto" method="post">
+                            <div class="form-group">
+                                <input type="text" name="titulo_proyecto" placeholder="Título del proyecto"
+                                       class="form-control" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="descripcion_proyecto" placeholder="Descripción"
+                                       class="form-control" autofocus>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Guardar
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="m-auto">
+            <div class="d-flex flex-row flex-wrap">
+                {% for proyecto in lista_de_proyectos %}
+                <div class="card border-primary col p-0 m-2" style="max-width: 20rem; min-width: 20rem">
+                    <div class="card-header w-100">{{proyecto.titulo}}
+                        <a href="/proyecto-hecho/{{proyecto.id}}" style="text-decoration:none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green"
+                                 class="bi bi-check2-square" viewBox="0 0 16 16">
+                                <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5z"/>
+                                <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0"/>
+                            </svg>
+                        </a>
+                        <a href="/eliminar-proyecto/{{proyecto.id}}" style="text-decoration:none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red"
+                                 class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="card-body">
+                        <p class="card-text">{{proyecto.descripcion}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

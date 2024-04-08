@@ -27,5 +27,4 @@ if __name__ == "__main__":
     # En la siguiente linea estamos indicando a SQLAlchemy que cree, si no existen,
     # las tablas de todos los modelos que encuentre en models.py
     db.Base.metadata.create_all(db.engine)
-    from waitress import serve
-    serve(app, host="0.0.0.0", port=5000)
+    app.run(debug=True)
